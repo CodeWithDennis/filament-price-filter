@@ -10,11 +10,11 @@ use Illuminate\Support\Number;
 
 class PriceFilter extends Filter
 {
-    public Closure | string | null $currency = 'USD';
+    public Closure | string | null $currency = null;
 
     public Closure | string | null $locale = null;
 
-    public Closure | bool $cents = true;
+    public Closure | bool | null $cents = null;
 
     public static function getDefaultName(): ?string
     {
@@ -33,7 +33,7 @@ class PriceFilter extends Filter
     public function getCurrency(): string
     {
         if ($this->currency === null) {
-            return 'USD';
+            return config('filament-price-filter.currency');
         }
 
         return $this->evaluate($this->currency);
@@ -50,6 +50,10 @@ class PriceFilter extends Filter
 
     public function getCents(): bool
     {
+        if($this->cents === null) {
+            return config('filament-price-filter.cents');
+        }
+
         return $this->evaluate($this->cents);
     }
 

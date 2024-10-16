@@ -14,6 +14,23 @@ You can install the package via composer:
 composer require codewithdennis/filament-price-filter
 ```
 
+You can publish the config file with:
+
+```bash
+php artisan vendor:publish --tag="filament-price-filter-config"
+```
+
+This is the contents of the published config file:
+
+```php
+<?php
+
+return [
+    'currency' => 'USD',
+    'cents' => true,
+];
+```
+
 ## Usage
 
 By default, the currency is set to USD, but you can change it to any currency you want.
@@ -30,7 +47,7 @@ PriceFilter::make()
     ->currency(currency: 'EUR', locale: 'NL'),
 ```
 
-A good practice is to save your currency as cents but if you haven't you can set the `cents` option to `false`.
+A good practice is to save your currency as cents but if you saved it as a whole number you can disable the cents.
 
 ```php
 PriceFilter::make()
