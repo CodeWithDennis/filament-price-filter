@@ -30,10 +30,18 @@ This is the contents of the published config file:
 return [
     'currency' => 'USD',
     'cents' => true,
+    'column' => 'price'
 ];
 ```
 
 ## Usage
+
+By default, the column that the filter will use is `price`, but you can change it to any column you want.
+
+```php
+PriceFilter::make()
+    ->currency(column: 'total_price')
+```
 
 By default, the currency is set to USD globally, but you can change it per filter to any currency you want.
 

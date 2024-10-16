@@ -12,6 +12,8 @@ class PriceFilter extends Filter
 {
     public Closure | string | null $currency = null;
 
+    public Closure | string | null $column = null;
+
     public Closure | string | null $locale = null;
 
     public Closure | bool | null $cents = null;
@@ -21,11 +23,12 @@ class PriceFilter extends Filter
         return 'priceFilter';
     }
 
-    public function currency(Closure | string | null $currency = null, Closure | string | null $locale = null, Closure | bool $cents = true): static
+    public function currency(Closure | string | null $currency = null, Closure | string | null $locale = null, Closure | bool $cents = true, Closure | string | null $column = null): static
     {
         $this->currency = $currency;
         $this->locale = $locale;
         $this->cents = $cents;
+        $this->column = $column;
 
         return $this;
     }
@@ -46,6 +49,15 @@ class PriceFilter extends Filter
         }
 
         return $this->evaluate($this->locale);
+    }
+
+    public function getColumn(): string
+    {
+        if ($this->column === null) {
+            return config('filament-price-filter.column');
+        }
+
+        return $this->evaluate($this->column);
     }
 
     public function getCents(): bool
@@ -99,12 +111,12 @@ class PriceFilter extends Filter
 
             return $query
                 ->when($data['from'] !== null, function (Builder $query) use ($cents, $data) {
-                    return $query->where('price', '>=', $cents ? (float) $data['from'] * 100 : (float) $data['from']);
+                    return $query->where($this->getColumn(), '>=', $cents ? (float) $data['from'] * 100 : (float) $data['from']);
                 })
                 ->when($data['to'] !== null, function (Builder $query) use ($data, $cents) {
                     return $data['to'] > 0
-                        ? $query->where('price', '<=', $cents ? (float) $data['to'] * 100 : (float) $data['to'])
-                        : $query->where('price', 0);
+                        ? $query->where($this->getColumn(), '<=', $cents ? (float) $data['to'] * 100 : (float) $data['to'])
+                        : $query->where($this->getColumn(), 0);
                 });
         });
 
