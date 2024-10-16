@@ -45,9 +45,7 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void
-    {
-    }
+    public function packageRegistered(): void {}
 
     public function packageBooted(): void
     {
@@ -80,8 +78,8 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            AlpineComponent::make('filament-price-filter', __DIR__.'/../resources/dist/filament-price-filter.js'),
-//            Css::make('filament-price-filter', __DIR__.'/../resources/dist/filament-price-filter.css'),
+            AlpineComponent::make('filament-price-filter', __DIR__ . '/../resources/dist/filament-price-filter.js'),
+            //            Css::make('filament-price-filter', __DIR__.'/../resources/dist/filament-price-filter.css'),
         ];
     }
 

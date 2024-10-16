@@ -112,7 +112,7 @@ class PriceFilter extends Filter
                 ->label(__('Price range to'))
                 ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
                 ->numeric()
-                ->view($sliderView,[
+                ->view($sliderView, [
                     'symbol' => $this->getCurrencySymbol($this->getCurrency()),
                 ]),
         ]);
