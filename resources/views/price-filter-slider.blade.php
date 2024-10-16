@@ -11,7 +11,7 @@
         })"
     >
         <span class="text-xs">
-            {{ $symbol }}  {{ $getState() ?? 0 }}
+            {{ $symbol }} {{ $getState() ?? 0 }}
         </span>
         <input x-model="state" type="range" min="0" max="100" value="0" step="5" class="w-full"/>
     </div>
