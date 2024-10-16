@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Tables\Filters;
+namespace CodeWithDennis\FilamentPriceFilter\Filament\Tables\Filters;
 
 use Closure;
 use Filament\Forms\Components\TextInput;
@@ -10,18 +10,18 @@ use Illuminate\Support\Number;
 
 class PriceFilter extends Filter
 {
-    public Closure|string|null $currency = 'USD';
+    public Closure | string | null $currency = 'USD';
 
-    public Closure|string|null $locale = null;
+    public Closure | string | null $locale = null;
 
-    public Closure|bool $cents = true;
+    public Closure | bool $cents = true;
 
     public static function getDefaultName(): ?string
     {
         return 'priceFilter';
     }
 
-    public function currency(Closure|string|null $currency = null, Closure|string|null $locale = null, Closure|bool $cents = true): static
+    public function currency(Closure | string | null $currency = null, Closure | string | null $locale = null, Closure | bool $cents = true): static
     {
         $this->currency = $currency;
         $this->locale = $locale;
@@ -80,8 +80,8 @@ class PriceFilter extends Filter
             $from = isset($data['from']) && is_numeric($data['from']) ? Number::currency(number: (float) $data['from'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
             $to = isset($data['to']) && is_numeric($data['to']) ? Number::currency(number: (float) $data['to'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
 
-            $fromIndicator = $from !== null ? __('Price range from').": $from" : null;
-            $toIndicator = $to !== null ? __('Price range to').": $to" : null;
+            $fromIndicator = $from !== null ? __('Price range from') . ": $from" : null;
+            $toIndicator = $to !== null ? __('Price range to') . ": $to" : null;
 
             if ($from !== null && $to !== null) {
                 return "{$fromIndicator} - {$toIndicator}";
