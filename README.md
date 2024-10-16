@@ -35,7 +35,7 @@ return [
 
 ## Usage
 
-By default, the currency is set to USD, but you can change it to any currency you want.
+By default, the currency is set to USD globally, but you can change it per filter to any currency you want.
 
 ```php
 PriceFilter::make()
