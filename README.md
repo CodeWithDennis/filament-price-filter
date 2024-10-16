@@ -47,7 +47,7 @@ By default, the currency is set to USD globally, but you can change it per filte
 
 ```php
 PriceFilter::make()
-    ->currency('EUR')
+    ->currency(currency: 'EUR')
 ```
 
 The filter will use the locale that is used in the application `config('app.locale')`, but you can also set a custom locale.
