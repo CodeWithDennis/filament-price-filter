@@ -50,7 +50,7 @@ class PriceFilter extends Filter
 
     public function getCents(): bool
     {
-        if($this->cents === null) {
+        if ($this->cents === null) {
             return config('filament-price-filter.cents');
         }
 
