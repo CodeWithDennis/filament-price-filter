@@ -4,10 +4,7 @@ namespace CodeWithDennis\FilamentPriceFilter;
 
 use CodeWithDennis\FilamentPriceFilter\Commands\FilamentPriceFilterCommand;
 use CodeWithDennis\FilamentPriceFilter\Testing\TestsFilamentPriceFilter;
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Livewire\Features\SupportTesting\Testable;
