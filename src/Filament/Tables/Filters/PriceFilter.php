@@ -18,6 +18,8 @@ class PriceFilter extends Filter
 
     public Closure | bool | null $cents = null;
 
+    public Closure | bool | null $slider = false;
+
     public static function getDefaultName(): ?string
     {
         return 'priceFilter';
@@ -31,6 +33,18 @@ class PriceFilter extends Filter
         $this->column = $column;
 
         return $this;
+    }
+
+    public function slider(Closure | bool | null $slider = true): static
+    {
+        $this->slider = $slider;
+
+        return $this;
+    }
+
+    public function getSlider(): string
+    {
+        return $this->evaluate($this->slider);
     }
 
     public function getCurrency(): string
@@ -81,15 +95,26 @@ class PriceFilter extends Filter
     {
         parent::setUp();
 
+        // TODO: Grab the slider settings, right now its not grabbing the settings
+        //        $sliderView = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
+
+        $sliderView = 'filament-price-filter::price-filter-slider';
+
         $this->form([
             TextInput::make('from')
                 ->label(__('Price range from'))
                 ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                ->numeric(),
+                ->numeric()
+                ->view($sliderView, [
+                    'symbol' => $this->getCurrencySymbol($this->getCurrency()),
+                ]),
             TextInput::make('to')
                 ->label(__('Price range to'))
                 ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                ->numeric(),
+                ->numeric()
+                ->view($sliderView,[
+                    'symbol' => $this->getCurrencySymbol($this->getCurrency()),
+                ]),
         ]);
 
         $this->indicateUsing(function (array $data) {
