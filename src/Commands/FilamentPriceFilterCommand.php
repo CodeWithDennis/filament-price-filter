@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace CodeWithDennis\FilamentPriceFilter\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentPriceFilterCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-price-filter';
 
     public $description = 'My command';
 
