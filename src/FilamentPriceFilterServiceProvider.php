@@ -79,7 +79,7 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
     {
         return [
             AlpineComponent::make('filament-price-filter', __DIR__ . '/../resources/dist/filament-price-filter.js'),
-            //            Css::make('filament-price-filter', __DIR__.'/../resources/dist/filament-price-filter.css'),
+            Css::make('filament-price-filter', __DIR__ . '/../resources/dist/filament-price-filter.css'),
         ];
     }
 
