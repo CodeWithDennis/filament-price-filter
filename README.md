@@ -4,6 +4,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/codewithdennis/filament-price-filter/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/codewithdennis/filament-price-filter/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/codewithdennis/filament-price-filter.svg?style=flat-square)](https://packagist.org/packages/codewithdennis/filament-price-filter)
 
+![thumbnail](https://raw.githubusercontent.com/CodeWithDennis/filament-price-filter/main/thumbnail.png)
+
 A simple and customizable price filter for FilamentPHP, allowing users to easily refine results based on specified price ranges.
 
 ## Installation
