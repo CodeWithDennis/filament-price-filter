@@ -4,7 +4,9 @@ namespace CodeWithDennis\FilamentPriceFilter;
 
 use CodeWithDennis\FilamentPriceFilter\Commands\FilamentPriceFilterCommand;
 use CodeWithDennis\FilamentPriceFilter\Testing\TestsFilamentPriceFilter;
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
+use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Livewire\Features\SupportTesting\Testable;
@@ -36,6 +38,10 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
+        }
+
+        if (file_exists($package->basePath('/../resources/views'))) {
+            $package->hasViews();
         }
     }
 
@@ -71,7 +77,10 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
      */
     protected function getAssets(): array
     {
-        return [];
+        return [
+            AlpineComponent::make('filament-price-filter', __DIR__ . '/../resources/dist/filament-price-filter.js'),
+            Css::make('filament-price-filter', __DIR__ . '/../resources/dist/filament-price-filter.css'),
+        ];
     }
 
     /**
@@ -106,15 +115,5 @@ class FilamentPriceFilterServiceProvider extends PackageServiceProvider
     protected function getScriptData(): array
     {
         return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getMigrations(): array
-    {
-        return [
-            'create_filament-price-filter_table',
-        ];
     }
 }

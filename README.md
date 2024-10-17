@@ -16,6 +16,12 @@ You can install the package via composer:
 composer require codewithdennis/filament-price-filter
 ```
 
+Make sure you add the following to your `tailwind.config.js` file. You will need to create a [theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) if you haven't already.
+
+```js
+'./vendor/codewithdennis/filament-price-filter/resources/**/*.blade.php'
+```
+
 You can publish the config file with:
 
 ```bash
@@ -30,39 +36,79 @@ This is the contents of the published config file:
 return [
     'currency' => 'USD',
     'cents' => true,
-    'column' => 'price'
 ];
 ```
 
 ## Usage
-
-By default, the column that the filter will use is `price`, but you can change it to any column you want.
-
-```php
-PriceFilter::make()
-    ->currency(column: 'total_price')
-```
+> [!NOTE]  
+> Global settings can be overridden by passing the desired values to the `PriceFilter::make('price')` method.
 
 By default, the currency is set to USD globally, but you can change it per filter to any currency you want.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->currency(currency: 'EUR')
 ```
 
 The filter will use the locale that is used in the application `config('app.locale')`, but you can also set a custom locale.
 
 ```php
-PriceFilter::make()
-    ->currency(currency: 'EUR', locale: 'NL'),
+PriceFilter::make('price')
+    ->currency(locale: 'NL'),
 ```
 
 A good practice is to save your currency as cents but if you saved it as a whole number you can disable the cents.
 
 ```php
-PriceFilter::make()
-    ->currency(currency: 'EUR', locale: 'NL', cents: false),
+PriceFilter::make('price')
+    ->currency(cents: false),
 ```
+
+If you want to use a range slider instead of an input field you can enable it.
+
+```php
+PriceFilter::make('price')
+    ->slider()
+```
+
+Set the minimum and maximum values for the filter.
+
+```php
+PriceFilter::make('price')
+    ->min(100)
+    ->max(1000)
+```
+
+If you want to grab the min, max values from the database you can use the `min` and `max` methods. Here is an example of how you can use it with caching.
+
+> [!NOTE]  
+> Flexible cache is a caching helper method that is introduced in Laravel 11.23.0, you can also use the default cache function.
+
+```php
+->min(fn () => Cache::flexible('min_price', [30, 60], function () {
+    return Order::min('price') / 100; // Divide by 100 if you saved it as cents
+}))
+````
+
+```php
+->max(fn () => Cache::flexible('max_price', [30, 60], function () {
+    return Order::max('price') / 100; // Divide by 100 if you saved it as cents
+}))
+```
+The step value is used to determine the interval between each value in the filter.
+
+```php
+PriceFilter::make('price')
+    ->step(100)
+```
+
+By default, the label will be the name of the filter, for example `PriceFilter::make('total_price')` will have a label of `Total price to` and `Total price from`. You can change the label to whatever you want.
+
+```php
+PriceFilter::make('price')
+    ->label('Shipping price')
+```
+
 
 ## Changelog
 
