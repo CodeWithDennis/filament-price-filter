@@ -87,16 +87,21 @@ PriceFilter::make()
     ->max(1000)
 ```
 
-If you want to grab the max value from the database and not query it every time you can use something like this.
+If you want to grab the min, max value from the database and not query it every time you can use something like this.
 > [!NOTE]  
 > Flexible cache is a caching helper method that is introduced in Laravel 11.23.0, you can also use the default cache function.
 
 ```php
-->max(fn() => Cache::flexible('max_price', [60, 180], function () {
-    return Order::max('price');
+->min(fn () => Cache::flexible('min_price', [30, 60], function () {
+    return Order::min('price') / 100; // Divide by 100 if you saved it as cents
 }))
 ````
 
+```php
+->max(fn () => Cache::flexible('max_price', [30, 60], function () {
+    return Order::max('price') / 100; // Divide by 100 if you saved it as cents
+}))
+```
 The step value is used to determine the interval between each value in the filter.
 
 ```php
