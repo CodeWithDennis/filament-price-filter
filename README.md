@@ -16,6 +16,12 @@ You can install the package via composer:
 composer require codewithdennis/filament-price-filter
 ```
 
+Make sure you add the following to your `tailwind.config.js` file. You will need to create a [theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) if you haven't already.
+
+```js
+'./vendor/codewithdennis/filament-price-filter/resources/**/*.blade.php'
+```
+
 You can publish the config file with:
 
 ```bash

@@ -10,7 +10,7 @@
             x-data="priceFilterSlider({
             state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$getStatePath()}')") }},
         })"
-            class="price-filter-slider"
+            class="filament-price-filter"
     >
         <span class="text-xs font-bold">
             {{ $symbol }} {{ $getState() ?? 0 }}
