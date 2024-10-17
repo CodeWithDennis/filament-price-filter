@@ -17,7 +17,7 @@
         </span>
 
         <input x-model="state"
-               type="range" min="0" max="10000" value="0" step="{{ $steps }}"
+               type="range" min="{{ $min }}" max="{{ $max }}" value="0" step="{{ $steps }}"
                class="w-full slider mt-2 bg-gray-50 dark:bg-gray-950 rounded-md"/>
     </div>
 </x-dynamic-component>

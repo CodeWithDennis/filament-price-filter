@@ -22,6 +22,10 @@ class PriceFilter extends Filter
 
     public Closure | int $steps = 1;
 
+    public Closure | int $min = 0;
+
+    public Closure | int $max = 10000;
+
     public static function getDefaultName(): ?string
     {
         return 'priceFilter';
@@ -49,6 +53,30 @@ class PriceFilter extends Filter
         $this->steps = $steps;
 
         return $this;
+    }
+
+    public function min(Closure | int $min): static
+    {
+        $this->min = $min;
+
+        return $this;
+    }
+
+    public function max(Closure | int $max): static
+    {
+        $this->max = $max;
+
+        return $this;
+    }
+
+    public function getMin(): int
+    {
+        return $this->evaluate($this->min);
+    }
+
+    public function getMax(): int
+    {
+        return $this->evaluate($this->max);
     }
 
     public function getSteps(): int
@@ -109,28 +137,30 @@ class PriceFilter extends Filter
     {
         parent::setUp();
 
-        // TODO: Grab the slider settings, right now its not grabbing the settings
-        //        $sliderView = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
+        $this->form(function () {
+            $sliderView = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
 
-        $sliderView = 'filament-price-filter::price-filter-slider';
+            $viewData = [
+                'symbol' => $this->getCurrencySymbol($this->getCurrency()),
+                'steps' => $this->getSteps(),
+                'min' => $this->getMin(),
+                'max' => $this->getMax(),
+            ];
 
-        $viewData = [
-            'symbol' => $this->getCurrencySymbol($this->getCurrency()),
-            'steps' => $this->getSteps(),
-        ];
-
-        $this->form([
-            TextInput::make('from')
-                ->label(__('Price range from'))
-                ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                ->numeric()
-                ->view($sliderView, $viewData),
-            TextInput::make('to')
-                ->label(__('Price range to'))
-                ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                ->numeric()
-                ->view($sliderView, $viewData),
-        ]);
+            return [
+                TextInput::make('from')
+                    ->label(__('Price range from'))
+                    ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
+                    ->numeric()
+                    ->step(fn () => $this->getSteps())
+                    ->view($sliderView, $viewData),
+                TextInput::make('to')
+                    ->label(__('Price range to'))
+                    ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
+                    ->numeric()
+                    ->view($sliderView, $viewData),
+            ];
+        });
 
         $this->indicateUsing(function (array $data) {
             $from = isset($data['from']) && is_numeric($data['from']) ? Number::currency(number: (float) $data['from'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
@@ -159,6 +189,5 @@ class PriceFilter extends Filter
                         : $query->where($this->getColumn(), 0);
                 });
         });
-
     }
 }
