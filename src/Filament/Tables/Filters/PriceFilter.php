@@ -20,6 +20,8 @@ class PriceFilter extends Filter
 
     public Closure | bool | null $slider = false;
 
+    public Closure | int $steps = 1;
+
     public static function getDefaultName(): ?string
     {
         return 'priceFilter';
@@ -40,6 +42,18 @@ class PriceFilter extends Filter
         $this->slider = $slider;
 
         return $this;
+    }
+
+    public function steps(Closure | int $steps): static
+    {
+        $this->steps = $steps;
+
+        return $this;
+    }
+
+    public function getSteps(): int
+    {
+        return $this->evaluate($this->steps);
     }
 
     public function getSlider(): string
@@ -100,21 +114,22 @@ class PriceFilter extends Filter
 
         $sliderView = 'filament-price-filter::price-filter-slider';
 
+        $viewData = [
+            'symbol' => $this->getCurrencySymbol($this->getCurrency()),
+            'steps' => $this->getSteps(),
+        ];
+
         $this->form([
             TextInput::make('from')
                 ->label(__('Price range from'))
                 ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
                 ->numeric()
-                ->view($sliderView, [
-                    'symbol' => $this->getCurrencySymbol($this->getCurrency()),
-                ]),
+                ->view($sliderView, $viewData),
             TextInput::make('to')
                 ->label(__('Price range to'))
                 ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
                 ->numeric()
-                ->view($sliderView, [
-                    'symbol' => $this->getCurrencySymbol($this->getCurrency()),
-                ]),
+                ->view($sliderView, $viewData),
         ]);
 
         $this->indicateUsing(function (array $data) {
