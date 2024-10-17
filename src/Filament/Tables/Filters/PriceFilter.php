@@ -138,7 +138,7 @@ class PriceFilter extends Filter
         parent::setUp();
 
         $this->form(function () {
-            $sliderView = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
+            $view = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
 
             $viewData = [
                 'symbol' => $this->getCurrencySymbol($this->getCurrency()),
@@ -154,14 +154,14 @@ class PriceFilter extends Filter
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
                     ->step(fn () => $this->getSteps())
-                    ->view($sliderView, $viewData)
+                    ->view($view, $viewData)
                     ->numeric(),
                 TextInput::make('to')
                     ->label(__($this->getLabel() . ' to'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
-                    ->view($sliderView, $viewData)
+                    ->view($view, $viewData)
                     ->numeric(),
             ];
         });
