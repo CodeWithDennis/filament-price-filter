@@ -64,6 +64,28 @@ PriceFilter::make()
     ->currency(currency: 'EUR', locale: 'NL', cents: false),
 ```
 
+If you want to use a range slider instead of the input fields you can enable it.
+
+```php
+PriceFilter::make()
+    ->slider()
+```
+
+Set the minimum and maximum values for the filter.
+
+```php
+PriceFilter::make()
+    ->min(100)
+    ->max(1000)
+```
+
+The step value is used to determine the interval between each value in the filter.
+
+```php
+PriceFilter::make()
+    ->step(100)
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
