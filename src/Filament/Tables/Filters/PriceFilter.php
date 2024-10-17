@@ -24,7 +24,7 @@ class PriceFilter extends Filter
 
     public Closure | int $min = 0;
 
-    public Closure | int $max = 10000;
+    public Closure | int $max = 100000;
 
     public static function getDefaultName(): ?string
     {
@@ -150,15 +150,19 @@ class PriceFilter extends Filter
             return [
                 TextInput::make('from')
                     ->label(__('Price range from'))
-                    ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                    ->numeric()
+                    ->prefix($this->getCurrencySymbol($this->getCurrency()))
+                    ->minValue($this->getMin())
+                    ->maxValue($this->getMax())
                     ->step(fn () => $this->getSteps())
-                    ->view($sliderView, $viewData),
+                    ->view($sliderView, $viewData)
+                    ->numeric(),
                 TextInput::make('to')
                     ->label(__('Price range to'))
-                    ->prefix(fn () => $this->getCurrencySymbol($this->getCurrency()))
-                    ->numeric()
-                    ->view($sliderView, $viewData),
+                    ->prefix($this->getCurrencySymbol($this->getCurrency()))
+                    ->minValue($this->getMin())
+                    ->maxValue($this->getMax())
+                    ->view($sliderView, $viewData)
+                    ->numeric(),
             ];
         });
 
