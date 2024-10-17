@@ -43,13 +43,6 @@ return [
 > [!NOTE]  
 > Global settings can be overridden by passing the desired values to the `PriceFilter::make('price')` method.
 
-By default, the column that the filter will use is `price`, but you can change it to any column you want.
-
-```php
-PriceFilter::make('price')
-    ->currency(column: 'total_price')
-```
-
 By default, the currency is set to USD globally, but you can change it per filter to any currency you want.
 
 ```php
@@ -61,17 +54,17 @@ The filter will use the locale that is used in the application `config('app.loca
 
 ```php
 PriceFilter::make('price')
-    ->currency(currency: 'EUR', locale: 'NL'),
+    ->currency(locale: 'NL'),
 ```
 
 A good practice is to save your currency as cents but if you saved it as a whole number you can disable the cents.
 
 ```php
 PriceFilter::make('price')
-    ->currency(currency: 'EUR', locale: 'NL', cents: false),
+    ->currency(cents: false),
 ```
 
-If you want to use a range slider instead of the input fields you can enable it.
+If you want to use a range slider instead of an input field you can enable it.
 
 ```php
 PriceFilter::make('price')
@@ -86,7 +79,8 @@ PriceFilter::make('price')
     ->max(1000)
 ```
 
-If you want to grab the min, max value from the database and not query it every time you can use something like this.
+If you want to grab the min, max values from the database you can use the `min` and `max` methods. Here is an example of how you can use it with caching.
+
 > [!NOTE]  
 > Flexible cache is a caching helper method that is introduced in Laravel 11.23.0, you can also use the default cache function.
 
@@ -115,7 +109,6 @@ PriceFilter::make('price')
     ->label('Shipping price')
 ```
 
-```php
 
 ## Changelog
 
