@@ -12,7 +12,7 @@
         })"
             class="filament-price-filter"
     >
-        <span class="text-xs font-bold">
+        <span class="text-xs font-semibold">
             {{ $symbol }} {{ $getState() ?? 0 }}
         </span>
 
