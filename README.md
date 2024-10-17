@@ -35,6 +35,8 @@ return [
 ```
 
 ## Usage
+> [!NOTE]  
+> Global settings can be overridden by passing the desired values to the `PriceFilter::make()` method.
 
 By default, the column that the filter will use is `price`, but you can change it to any column you want.
 
@@ -80,7 +82,6 @@ PriceFilter::make()
 ```
 
 If you want to grab the max value from the database and not query it every time you can use something like this.
-
 > [!NOTE]  
 > Flexible cache is a caching helper method that is introduced in Laravel 11.23.0, you can also use the default cache function.
 
@@ -89,8 +90,6 @@ If you want to grab the max value from the database and not query it every time 
     return Order::max('price');
 }))
 ````
-
-```php
 
 The step value is used to determine the interval between each value in the filter.
 
