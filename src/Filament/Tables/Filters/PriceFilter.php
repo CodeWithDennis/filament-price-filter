@@ -29,7 +29,7 @@ class PriceFilter extends Filter
         return 'priceFilter';
     }
 
-    public function currency(Closure | string | null $currency = null, Closure | string | null $locale = null, Closure | bool $cents = true, Closure | string | null $column = null): static
+    public function currency(Closure | string | null $currency = null, Closure | string | null $locale = null, Closure | bool $cents = true): static
     {
         $this->currency = $currency;
         $this->locale = $locale;
