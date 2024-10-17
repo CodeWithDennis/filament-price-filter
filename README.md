@@ -36,53 +36,52 @@ This is the contents of the published config file:
 return [
     'currency' => 'USD',
     'cents' => true,
-    'column' => 'price'
 ];
 ```
 
 ## Usage
 > [!NOTE]  
-> Global settings can be overridden by passing the desired values to the `PriceFilter::make()` method.
+> Global settings can be overridden by passing the desired values to the `PriceFilter::make('price')` method.
 
 By default, the column that the filter will use is `price`, but you can change it to any column you want.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->currency(column: 'total_price')
 ```
 
 By default, the currency is set to USD globally, but you can change it per filter to any currency you want.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->currency(currency: 'EUR')
 ```
 
 The filter will use the locale that is used in the application `config('app.locale')`, but you can also set a custom locale.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->currency(currency: 'EUR', locale: 'NL'),
 ```
 
 A good practice is to save your currency as cents but if you saved it as a whole number you can disable the cents.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->currency(currency: 'EUR', locale: 'NL', cents: false),
 ```
 
 If you want to use a range slider instead of the input fields you can enable it.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->slider()
 ```
 
 Set the minimum and maximum values for the filter.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->min(100)
     ->max(1000)
 ```
@@ -105,9 +104,18 @@ If you want to grab the min, max value from the database and not query it every 
 The step value is used to determine the interval between each value in the filter.
 
 ```php
-PriceFilter::make()
+PriceFilter::make('price')
     ->step(100)
 ```
+
+By default, the label will be the name of the filter, for example `PriceFilter::make('total_price')` will have a label of `Total price to` and `Total price from`. You can change the label to whatever you want.
+
+```php
+PriceFilter::make('price')
+    ->label('Shipping price')
+```
+
+```php
 
 ## Changelog
 
