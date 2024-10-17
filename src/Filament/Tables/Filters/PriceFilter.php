@@ -149,7 +149,7 @@ class PriceFilter extends Filter
 
             return [
                 TextInput::make('from')
-                    ->label(__('Price range from'))
+                    ->label(__($this->getLabel() . ' from'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
@@ -157,7 +157,7 @@ class PriceFilter extends Filter
                     ->view($sliderView, $viewData)
                     ->numeric(),
                 TextInput::make('to')
-                    ->label(__('Price range to'))
+                    ->label(__($this->getLabel() . ' to'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
@@ -170,8 +170,8 @@ class PriceFilter extends Filter
             $from = isset($data['from']) && is_numeric($data['from']) ? Number::currency(number: (float) $data['from'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
             $to = isset($data['to']) && is_numeric($data['to']) ? Number::currency(number: (float) $data['to'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
 
-            $fromIndicator = $from !== null ? __('Price range from') . ": $from" : null;
-            $toIndicator = $to !== null ? __('Price range to') . ": $to" : null;
+            $fromIndicator = $from !== null ? __($this->getLabel() . ' from') . ": $from" : null;
+            $toIndicator = $to !== null ? __($this->getLabel() . ' to') . ": $to" : null;
 
             if ($from !== null && $to !== null) {
                 return "{$fromIndicator} - {$toIndicator}";
