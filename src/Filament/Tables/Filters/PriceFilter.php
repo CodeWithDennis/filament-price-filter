@@ -16,10 +16,6 @@ class PriceFilter extends Filter
 
     public Closure | bool | null $cents = null;
 
-    public Closure | bool | null $slider = false;
-
-    public Closure | int $steps = 1;
-
     public Closure | int $min = 0;
 
     public Closure | int $max = 100000;
@@ -34,20 +30,6 @@ class PriceFilter extends Filter
         $this->currency = $currency;
         $this->locale = $locale;
         $this->cents = $cents;
-
-        return $this;
-    }
-
-    public function slider(Closure | bool | null $slider = true): static
-    {
-        $this->slider = $slider;
-
-        return $this;
-    }
-
-    public function steps(Closure | int $steps): static
-    {
-        $this->steps = $steps;
 
         return $this;
     }
@@ -74,16 +56,6 @@ class PriceFilter extends Filter
     public function getMax(): int
     {
         return $this->evaluate($this->max);
-    }
-
-    public function getSteps(): int
-    {
-        return $this->evaluate($this->steps);
-    }
-
-    public function getSlider(): string
-    {
-        return $this->evaluate($this->slider);
     }
 
     public function getCurrency(): string
@@ -126,30 +98,18 @@ class PriceFilter extends Filter
         parent::setUp();
 
         $this->form(function () {
-            $view = $this->getSlider() ? 'filament-price-filter::price-filter-slider' : null;
-
-            $viewData = [
-                'symbol' => $this->getCurrencySymbol($this->getCurrency()),
-                'steps' => $this->getSteps(),
-                'min' => $this->getMin(),
-                'max' => $this->getMax(),
-            ];
-
             return [
                 TextInput::make('from')
                     ->label(__($this->getLabel() . ' from'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
-                    ->step(fn () => $this->getSteps())
-                    ->view($view, $viewData)
                     ->numeric(),
                 TextInput::make('to')
                     ->label(__($this->getLabel() . ' to'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
-                    ->view($view, $viewData)
                     ->numeric(),
             ];
         });
