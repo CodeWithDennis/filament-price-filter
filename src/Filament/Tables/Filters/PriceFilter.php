@@ -100,13 +100,13 @@ class PriceFilter extends Filter
         $this->form(function () {
             return [
                 TextInput::make('from')
-                    ->label(__($this->getLabel() . ' from'))
+                    ->label($this->getLabel() . ' ' . __('filament-price-filter::price-filter.from'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
                     ->numeric(),
                 TextInput::make('to')
-                    ->label(__($this->getLabel() . ' to'))
+                    ->label($this->getLabel() . ' ' . __('filament-price-filter::price-filter.to'))
                     ->prefix($this->getCurrencySymbol($this->getCurrency()))
                     ->minValue($this->getMin())
                     ->maxValue($this->getMax())
