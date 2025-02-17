@@ -118,8 +118,8 @@ class PriceFilter extends Filter
             $from = isset($data['from']) && is_numeric($data['from']) ? Number::currency(number: (float) $data['from'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
             $to = isset($data['to']) && is_numeric($data['to']) ? Number::currency(number: (float) $data['to'], in: $this->getCurrency(), locale: $this->getlocale()) : null;
 
-            $fromIndicator = $from !== null ? __($this->getLabel() . ' from') . ": $from" : null;
-            $toIndicator = $to !== null ? __($this->getLabel() . ' to') . ": $to" : null;
+            $fromIndicator = $from !== null ? $this->getLabel() . ' ' . __('filament-price-filter::price-filter.from') . ": $from" : null;
+            $toIndicator = $to !== null ? $this->getLabel() . ' ' . __('filament-price-filter::price-filter.to') . ": $to" : null;
 
             if ($from !== null && $to !== null) {
                 return "{$fromIndicator} - {$toIndicator}";
