@@ -33,6 +33,13 @@ return [
 ];
 ```
 
+If you want to customize the translations, you can publish the translations file.
+
+```bash
+php artisan vendor:publish --tag="filament-price-filter-translations"
+```
+
+
 ## Usage
 > [!NOTE]  
 > Global settings can be overridden by passing the desired values to the `PriceFilter::make('price')` method.
