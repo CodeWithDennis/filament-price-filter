@@ -16,12 +16,6 @@ You can install the package via composer:
 composer require codewithdennis/filament-price-filter
 ```
 
-Make sure you add the following to your `tailwind.config.js` file. You will need to create a [theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) if you haven't already.
-
-```js
-'./vendor/codewithdennis/filament-price-filter/resources/**/*.blade.php'
-```
-
 You can publish the config file with:
 
 ```bash
@@ -79,13 +73,6 @@ If you want to grab the min, max values from the database you can use the `min` 
 ->max(fn () => Cache::flexible('max_price', [30, 60], function () {
     return Order::max('price') / 100; // Divide by 100 if you saved it as cents
 }))
-```
-
-The step value is used to determine the interval between each value in the filter.
-
-```php
-PriceFilter::make('price')
-    ->step(100)
 ```
 
 By default, the label will be the name of the filter, for example `PriceFilter::make('total_price')` will have a label of `Total price to` and `Total price from`. You can change the label to whatever you want.
