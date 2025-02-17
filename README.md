@@ -64,21 +64,6 @@ PriceFilter::make('price')
     ->currency(cents: false),
 ```
 
-If you want to use a range slider instead of an input field you can enable it.
-
-```php
-PriceFilter::make('price')
-    ->slider()
-```
-
-Set the minimum and maximum values for the filter.
-
-```php
-PriceFilter::make('price')
-    ->min(100)
-    ->max(1000)
-```
-
 If you want to grab the min, max values from the database you can use the `min` and `max` methods. Here is an example of how you can use it with caching.
 
 > [!NOTE]  
@@ -95,6 +80,7 @@ If you want to grab the min, max values from the database you can use the `min` 
     return Order::max('price') / 100; // Divide by 100 if you saved it as cents
 }))
 ```
+
 The step value is used to determine the interval between each value in the filter.
 
 ```php
