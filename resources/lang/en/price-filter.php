@@ -1,6 +1,6 @@
 <?php
 
-// translations for CodeWithDennis/FilamentPriceFilter
 return [
-    //
+    'from' => 'from',
+    'to' => 'to',
 ];
